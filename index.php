@@ -1,53 +1,3 @@
-<?php
-
-
-define('SERVER', "localhost");
-define('USER', "root");
-define('PASS', "");
-define('DATABASE', "students");
-
-if (isset($_POST['name']) && $_POST['name'] != null) {	
-
-	try {
-
-		$conn = new PDO("mysql:host=" . SERVER .";dbname=" . DATABASE . ";charset=utf8", USER, PASS);
-		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		//$conn->query("INSERT INTO users (name, surname, email, phone) VALUES ('". $_POST['name'] ."','". $_POST['surname'] ."','". $_POST['email'] ."','". $_POST['phone'] ."')"); - nesaugu !!!
-
-		$statement = $conn->prepare("INSERT INTO users (name, surname, email, phone) VALUES (:name,:surname,:email,:phone)");
-
-		//1 variantas
-		$statement->bindParam(":name", $_POST['name']); //bind pririsa
-		$statement->bindParam(":surname", $_POST['surname']);
-		$statement->bindParam(":email", $_POST['email']);
-		$statement->bindParam(":phone", $_POST['phone']);
-		$statement->execute();
-		//2variantas
-		//$statement->execute($_POST);
-		$conn = null;
-
-	} catch(PDOException $e) {
-		echo "Connection failed: " . $e->getMessage();
-	}
-}
-	try {
-
-	$conn = new PDO("mysql:host=" . SERVER .";dbname=" . DATABASE . ";charset=utf8", USER, PASS);
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-	$statement = $conn->query("SELECT * FROM users");
-	$users = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-	$conn = null;
-
-	} 
-	catch(PDOException $e) {
-		echo "Connection failed: " . $e->getMessage();
-	}
-	
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,24 +28,14 @@ if (isset($_POST['name']) && $_POST['name'] != null) {
 
 					</thead>
 					<tbody id="user_table_body">
-						<?php
-							foreach ($users as $user) {
-								echo "<tr>
-										<td>" . $user['id'] . "</td>
-										<td>". $user['name'] . "</td>
-										<td>". $user['surname'] . "</td>
-										<td>" . $user['email']. "</td>
-										<td>" . $user['phone'] . "</td>
-									</tr>";
-							}
-						?>
+					
 					</tbody>
 				</table>
 			</div>
 			<div class="col">
 				<h2>Register</h2>
 				<div id="alert"></div>
-				<form method="POST">
+				
 					<div class="input-group">
 						<input class="form-control" type="text" name="name" placeholder="Name" id="form_name">
 					</div><br/>
@@ -108,16 +48,13 @@ if (isset($_POST['name']) && $_POST['name'] != null) {
 					<div class="input-group">
 						<input class="form-control" type="text" name="phone" placeholder="Phone" id="form_phone">
 					</div><br/>
-					<div class="input-group">
-						<input class="btn btn-dark" type="submit" name="Irasyti" value="submit">
-					</div>
 					<div>
 						<input onclick="add()" class="btn btn-danger" type="button" value="Add">
 					</div>
 					<div>
 						<input id="ajax_post" class="btn btn-warning" type="button" value="AJAX post">
 					</div>
-				</form>	
+
 			</div>
 		</div>
 	</div>

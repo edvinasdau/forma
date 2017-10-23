@@ -33,3 +33,10 @@ $("#ajax_post").click(function(){
 			});
 		});
 });
+
+$.getJSON("show.php", function(result){
+				$("#user_table_body").html('');
+				$.each(result, function(i, field){
+					$("#user_table_body").append("<tr><td>" + field.name + "</td><td>" + field.surname + "</td><td>" + field.email + "</td><td>" + field.phone + "</td></tr>");
+				});
+			});
