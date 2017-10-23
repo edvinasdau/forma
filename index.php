@@ -29,9 +29,10 @@
 		<div class="row">
 			<div class="col-md-8">
 				<h2>List</h2>
+				<input class="form-control" type="number" name="" id="filter">
 				<table class="table table-sm">
 					<thead>
-						<th>Name</th><th>Surname</th><th>Email</th><th>Phone</th>
+						<th>Id</th><th>Name</th><th>Surname</th><th>Email</th><th>Phone</th>
 					</thead>
 					<tbody id="user_table_body">
 					</tbody>
@@ -53,7 +54,7 @@
 					<input  id="form_phone" class="form-control" type="text" name="phone" placeholder="Phone Number">
 				</div><br/>
 				<div class="input-group">
-					<input id="ajax_post" class="btn btn-warning" type="button" value="AJAX Post">
+					<input id="ajax_post" class="btn btn-warning" type="button" value="Add user">
 				</div>
 			</div>
 		</div>

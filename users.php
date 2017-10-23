@@ -28,9 +28,16 @@ try {
     $conn = new PDO("mysql:host=localhost;dbname=students;charset=utf8", "root", "");
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $statement = $conn->query("SELECT * FROM users");
-   	
-    $response['users'] = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    if(isset($_GET['filter'])) {
+    	//nesaugu
+    	$statement = $conn->query("SELECT * FROM users WHERE id >" . $_GET["filter"]);
+    	 $response['users'] = $statement->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+    	$statement = $conn->query("SELECT * FROM users");
+    	$response['users'] = $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     $conn = null;
   
 } catch(PDOException $e) {
