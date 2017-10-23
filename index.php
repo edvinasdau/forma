@@ -6,7 +6,8 @@ define('USER', "root");
 define('PASS', "");
 define('DATABASE', "students");
 
-if (isset($_POST['name'])) {	
+if (isset($_POST['name']) && $_POST['name'] != null) {	
+
 	try {
 
 		$conn = new PDO("mysql:host=" . SERVER .";dbname=" . DATABASE . ";charset=utf8", USER, PASS);
@@ -50,10 +51,15 @@ if (isset($_POST['name'])) {
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>Errors</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container">
@@ -88,6 +94,7 @@ if (isset($_POST['name'])) {
 			</div>
 			<div class="col">
 				<h2>Register</h2>
+				<div id="alert"></div>
 				<form method="POST">
 					<div class="input-group">
 						<input class="form-control" type="text" name="name" placeholder="Name" id="form_name">
@@ -106,6 +113,9 @@ if (isset($_POST['name'])) {
 					</div>
 					<div>
 						<input onclick="add()" class="btn btn-danger" type="button" value="Add">
+					</div>
+					<div>
+						<input id="ajax_post" class="btn btn-warning" type="button" value="AJAX post">
 					</div>
 				</form>	
 			</div>
